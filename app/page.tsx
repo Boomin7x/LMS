@@ -66,6 +66,14 @@ export default function Home() {
     },
   ];
 
+  const coursesArray = [
+    "/courses/course1.png",
+    "/courses/couse2.png",
+    "/courses/course3.png",
+    "/courses/course4.png",
+    "/courses/course5.png",
+  ];
+
   const FeatureComponentArray = FeaturesArray?.map((items, i) => (
     <FeatureCard key={i} {...items} />
   ));
@@ -214,7 +222,33 @@ export default function Home() {
           </div>
         </BasicContainer>
       </section>
-      <section className="w-full  h-[70vh] flex flex-col"></section>
+      <section className="w-full  h-[70vh] bg-neutral-100/50 flex flex-col ">
+        <h1 className="text-center text-4xl font-semibold tracking-tighter my-8">
+          Our Popular Work
+        </h1>
+        <BasicContainer>
+          <div className="h-full w-full grid grid-rows-3 grid-cols-4 gap-3">
+            {coursesArray?.map((items, i) => (
+              <div
+                key={"coursesArray" + i}
+                className={cn(
+                  "w-full h-full border rounded ",
+                  i === 0 && "col-span-2 row-span-2"
+                )}
+              >
+                <Image
+                  src={items}
+                  alt=""
+                  width={100}
+                  height={100}
+                  className="w-full h-full object-cover object-center"
+                  unoptimized
+                />
+              </div>
+            ))}
+          </div>
+        </BasicContainer>
+      </section>
     </main>
   );
 }
