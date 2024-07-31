@@ -8,18 +8,18 @@ type Props = {
 const Marqueez = ({ data }: Props) => {
   return (
     <motion.div
-      initial={{ x: 0 }}
       animate={{
-        x: "-100%",
-      }}
-      transition={{
-        duration: 30,
-        repeat: Infinity,
-        ease: "linear",
+        x: [0, "-100%"],
+        transition: {
+          duration: 30,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "linear",
+        },
       }}
       //   variants={marqueeVariants}
       // animate="animate"
-      className="w-full flex flex-shrink-0  items-center   "
+      className="w-full flex  flex-shrink-0  items-center   "
     >
       {data.map((items) => (
         <div

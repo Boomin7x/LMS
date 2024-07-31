@@ -1,18 +1,27 @@
 "use client";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import BasicContainer from "@/components/BasicContainer";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Marqueez from "@/components/Marqueez";
 import { describe } from "node:test";
 import { DialogDescription } from "@/components/ui/dialog";
-import { FC, HTMLAttributes, ReactNode } from "react";
+import { FC, HTMLAttributes, ReactNode, useEffect, useState } from "react";
 import { FeatureCard } from "@/components/FeatureCard";
 import GridBg from "@/components/GridBg";
 import { CogIcon } from "lucide-react";
 import Dotbg from "@/components/Dotbg";
 import { BeamBorder, MovingBorder } from "@/components/beamBorder";
 import { cn } from "@/lib/utils";
+import { CloseIcon, ExpandableCardDemo } from "@/components/cardExpandable";
+import useAnimatedGrid from "@/hooks/useAnimatedGrid";
+import {
+  rotate,
+  rotateHover,
+  translateX,
+  translateXHover,
+  translateY,
+} from "@/lib/animationVariable";
 
 export default function Home() {
   const FeaturesArray = [
@@ -66,17 +75,87 @@ export default function Home() {
     },
   ];
 
+  const content = (
+    <p>
+      Lana Del Rey, an iconic American singer-songwriter, is celebrated for her
+      melancholic and cinematic music style. Born Elizabeth Woolridge Grant in
+      New York City, she has captivated audiences worldwide with her haunting
+      voice and introspective lyrics. <br /> <br /> Her songs often explore
+      themes of tragic romance, glamour, and melancholia, drawing inspiration
+      from both contemporary and vintage pop culture. With a career that has
+      seen numerous critically acclaimed albums, Lana Del Rey has established
+      herself as a unique and influential figure in the music industry, earning
+      a dedicated fan base and numerous accolades.
+    </p>
+  );
   const coursesArray = [
-    "/courses/course1.png",
-    "/courses/couse2.png",
-    "/courses/course3.png",
-    "/courses/course4.png",
-    "/courses/course5.png",
+    {
+      title: "Main Course 1",
+      description: "Main Course essenatials and vagues",
+      src: "/courses/course1.png",
+      content: () => content,
+    },
+    {
+      title: "Main Course 2",
+      description: "Main Course essenatials and vagues",
+      src: "/courses/couse2.png",
+      content: () => content,
+    },
+    {
+      title: "Main Course 3",
+      description: "Main Course essenatials and vagues",
+      src: "/courses/course3.png",
+      content: () => content,
+    },
+    {
+      title: "Main Course 4",
+      description: "Main Course essenatials and vagues",
+      src: "/courses/course4.png",
+      content: () => content,
+    },
+    {
+      title: "Main Course 5",
+      description: "Main Course essenatials and vagues",
+      src: "/courses/course5.png",
+      content: () => content,
+    },
+  ];
+
+  const newCourse = [
+    {
+      description: "Lana Del Rey",
+      title: "Summertime Sadness",
+      src: "https://assets.aceternity.com/demos/lana-del-rey.jpeg",
+      ctaText: "Visit",
+      ctaLink: "https://ui.aceternity.com/templates",
+      content: () => {
+        return (
+          <p>
+            Lana Del Rey, an iconic American singer-songwriter, is celebrated
+            for her melancholic and cinematic music style. Born Elizabeth
+            Woolridge Grant in New York City, she has captivated audiences
+            worldwide with her haunting voice and introspective lyrics. <br />{" "}
+            <br /> Her songs often explore themes of tragic romance, glamour,
+            and melancholia, drawing inspiration from both contemporary and
+            vintage pop culture. With a career that has seen numerous critically
+            acclaimed albums, Lana Del Rey has established herself as a unique
+            and influential figure in the music industry, earning a dedicated
+            fan base and numerous accolades.
+          </p>
+        );
+      },
+    },
   ];
 
   const FeatureComponentArray = FeaturesArray?.map((items, i) => (
     <FeatureCard key={i} {...items} />
   ));
+
+  const { active, id, ref, setActive } = useAnimatedGrid({
+    cards: coursesArray,
+  });
+
+  const [hoverCards, setHoverCards] = useState(false);
 
   return (
     <main className="flex min-h-screen flex-col items-center  py-24 ">
@@ -222,30 +301,62 @@ export default function Home() {
           </div>
         </BasicContainer>
       </section>
-      <section className="w-full  h-[70vh] bg-neutral-100/50 flex flex-col ">
+      <section className="w-full  h-[70vh] flex flex-col ">
         <h1 className="text-center text-4xl font-semibold tracking-tighter my-8">
           Our Popular Work
         </h1>
         <BasicContainer>
-          <div className="h-full w-full grid grid-rows-3 grid-cols-4 gap-3">
-            {coursesArray?.map((items, i) => (
-              <div
-                key={"coursesArray" + i}
-                className={cn(
-                  "w-full h-full border rounded ",
-                  i === 0 && "col-span-2 row-span-2"
-                )}
-              >
-                <Image
-                  src={items}
-                  alt=""
-                  width={100}
-                  height={100}
-                  className="w-full h-full object-cover object-center"
-                  unoptimized
-                />
-              </div>
-            ))}
+          <ExpandableCardDemo cards={coursesArray} />
+        </BasicContainer>
+      </section>
+      <section className="w-full h-[50vh] flex flex-col relative ">
+        <BasicContainer className="h-full flex-row  border rounded-lg">
+          <div className="  h-full flex-1 gap-6  flex flex-col justify-center ">
+            <h1 className="text-4xl font-semibold tracking-tighter ">
+              Ready to Transform Your Learning Experience?
+            </h1>
+            <h3 className="text-lg ">
+              Sign up today and see how Brax Learning can make a difference.
+            </h3>
+            <div className="flex gap-4 items-center">
+              <Button variant="outline">Start Your Free Trial</Button>
+              <Button variant="flat">Schedule a Demo</Button>
+            </div>
+          </div>
+          <div className=" h-full flex flex-col justify-center flex-1">
+            <div className="h-3/5 flex">
+              {FeaturesArray.slice(0, 3).map((items, i) => (
+                <div
+                  key={"FeaturesArray" + i + "slice"}
+                  onMouseEnter={() => setHoverCards(true)}
+                  onMouseLeave={() => setHoverCards(false)}
+                  className={cn(
+                    "rounded-lg border h-full w-1/2 min-w-[50%]  overflow-hidden transition-all duration-1000 scale-1 ease-out  ",
+                    translateY[i as keyof typeof translateY],
+                    translateX[i as keyof typeof translateX],
+                    rotate[i as keyof typeof rotate],
+                    hoverCards && rotateHover[i as keyof typeof rotateHover],
+                    hoverCards && translateXHover[i as keyof typeof rotateHover]
+                  )}
+                >
+                  <div className="h-2/3 bg-neutral-800 ">
+                    <Image
+                      src={items.image}
+                      alt=""
+                      width={590}
+                      height={590}
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+                  <div className="h-full bg-white w-full  flex flex-col p-4">
+                    <h5 className=" font-semibold text-lg">{items?.title}</h5>
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {items.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </BasicContainer>
       </section>
