@@ -210,15 +210,15 @@ export default function Home() {
         <BasicContainer>
           <div className="w-full h-full grid grid-cols-3 grid-rows-3 gap-3 my-8">
             <WhatsCard
-              className="p-1"
+              className="p-1 dark:bg-black dark:hover:border-neutral-700 "
               title="Easy Setup"
               desc="Get started quickly with our user-friendly setup process."
             >
               <GridBg className="h-3/5 flex items-center justify-center">
-                <CogIcon className="w-3/5 h-3/5 text-muted-foreground" />
+                <CogIcon className="w-3/5 h-3/5 text-muted-foreground dark:text-neutral-800" />
               </GridBg>
             </WhatsCard>
-            <div className="border border-neutral-500/20 hover:border-neutral-500 rounded-lg h-full w-full row-span-2 flex flex-col p-1">
+            <div className="border border-neutral-500/20 hover:border-neutral-500 dark:hover:border-neutral-700  rounded-lg h-full w-full row-span-2 flex flex-col p-1">
               <div className="w-full h-4/5  rounded-lg  p-5">
                 <div className="h-full w-full flex items-center justify-center">
                   <div className="w-4/5 h-2/5 relative  p-[1px] overflow-hidden">
@@ -231,7 +231,7 @@ export default function Home() {
                         />
                       </MovingBorder>
                     </div>
-                    <div className="w-full h-full  flex items-center relative bg-white">
+                    <div className="w-full h-full  flex items-center relative bg-white dark:bg-black">
                       <h1 className="font-bold text-6xl text-primary text-center w-full p-3">
                         BRAX
                       </h1>
@@ -239,7 +239,7 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className=" w-full p-5 bg-white">
+              <div className=" w-full p-5 bg-white dark:bg-black">
                 <h3 className="text-lg font-bold">Engage and Assess</h3>
                 <p className="text-muted-foreground text-sm">
                   Use our tools to engage students and assess their
@@ -265,7 +265,7 @@ export default function Home() {
               </div>
             </WhatsCard> */}
             <WhatsCard
-              className="p-1"
+              className="p-1 dark:hover:border-neutral-700 "
               title="Create and Manage Courses"
               desc="Design courses, upload materials, and manage student enrollments with ease."
             >
@@ -288,9 +288,9 @@ export default function Home() {
             {WhatsArray?.map((items, i) => (
               <div
                 key={`WhatsArray` + i}
-                className="border border-neutral-500/20 hover:border-neutral-500 rounded-lg h-full overflow-hidden w-full"
+                className="border border-neutral-500/20 hover:border-neutral-500 dark:hover:border-neutral-700 rounded-lg h-full overflow-hidden w-full"
               >
-                <div className="w-full p-5 bg-white">
+                <div className="w-full p-5 bg-white dark:bg-black">
                   <h3 className="text-lg font-bold">{items.title}</h3>
                   <p className="text-muted-foreground text-sm mt-3">
                     {items.description}
@@ -348,7 +348,7 @@ export default function Home() {
                       className="h-full w-full object-cover object-center"
                     />
                   </div>
-                  <div className="h-full bg-white w-full  flex flex-col p-4">
+                  <div className="h-full bg-white dark:bg-black w-full  flex flex-col p-4">
                     <h5 className=" font-semibold text-lg">{items?.title}</h5>
                     <p className="text-sm text-muted-foreground line-clamp-2">
                       {items.description}
@@ -412,7 +412,7 @@ const WhatsCard = ({
       {...props}
     >
       {children}
-      <div className=" w-full p-5 bg-white">
+      <div className=" w-full p-5 bg-white dark:bg-black">
         <h3 className="text-lg font-bold">{title}</h3>
         <p className="text-muted-foreground text-sm">{desc}</p>
       </div>
