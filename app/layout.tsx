@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "next-themes";
+import ThemeToggle from "@/components/themeToggle";
 
 const inter = Inter({ subsets: ["latin"] });
 const poppins = Poppins({
@@ -28,6 +29,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <Navbar />
           {children}
+          <ThemeToggle />
         </ThemeProvider>
       </body>
     </html>
